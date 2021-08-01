@@ -1,0 +1,101 @@
+{%extends 'base.html' %}
+
+{%block head%}
+    <title>Sign-Up</title>
+{%endblock%}
+
+{%block body  %}
+    <div class="">
+        <div class="page-content-product">
+            <div class="main-product">
+                <div class="container">
+                    <div class="row clearfix">
+                        <form method="POST" action="{% url 'sign-up' %}">
+                            {%csrf_token%}
+                            <div class="find-box">
+                                <h1>Sign-Up</h1>
+                                <h4>Join our community.</h4>
+                                <div class="product-sh">
+                                    <div class="col-sm-8">
+                                        {%if request.GET.next%}
+                                            <input type="hidden" name="next" value="{{request.GET.next}}">
+                                        {%endif%}
+                                        <div class="form-sh">
+                                            {{form.username}}
+                                            <br>
+                                            {% for e in form.username.errors %}
+                                            <br>
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{e}}
+                                                </div>
+                                            {%endfor%}
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-sh">
+                                            {{form.email}}
+                                            <br>
+                                            {% for e in form.email.errors %}
+                                            <br>
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{e}}
+                                                </div>
+                                            {%endfor%}
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-sh">
+                                            {{form.password1}}
+                                            <br>
+                                            {% for e in form.passowrd1.errors %}
+                                            <br>
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{e}}
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-sh">
+                                            {{form.password2}}
+                                            <br>
+                                            {% for e in form.password2.errors %}
+                                            <br>
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{e}}
+                                                </div>
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <br><br><br>
+                                        <div class="form-sh"> <a class="btn" ><input type="submit" value="Sign-Up"></a> </div>
+                                    </div>
+                                    <p>Already have an account?
+                                        <a href="{% url 'log-in'%}">
+                                            Log-In
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var username = document.getElementById("id_username")
+        var email = document.getElementById("id_email")
+        var password1= document.getElementById("id_password1")
+        var password2 = document.getElementById("id_password2")
+        username.setAttribute('placeholder','Username')
+        email.setAttribute('placeholder','Email')
+        password1.setAttribute('placeholder','Password')
+        password2.setAttribute('placeholder','Re-password')
+    </script>  
+{%endblock%}

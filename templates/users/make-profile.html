@@ -1,0 +1,48 @@
+{%extends 'base.html' %}
+
+{%block head%}
+<title>Making-Profile</title>
+{%endblock%}
+
+{%block body %}
+<div class="">
+    <div class="page-content-product">
+        <div class="main-product">
+            <div class="container">
+                <div class="row clearfix">
+                    <form method="POST" action="{% url 'make-profile' %}" enctype= "multipart/form-data">
+                        {%csrf_token%}
+                        <div class="find-box">
+                            <h1>Your first step</h1>
+                            <h4>Welcome !</h4>
+                            <div class="product-sh">
+                                
+                                {%for f in form%}
+                                    <div class="col-sm-8">
+                                        <div class="form-sh">
+                                            <h4>{{f.label}}</h4>
+                                            {{f}}
+                                        </div>
+                                        <br><br>
+                                    </div>
+                                {%endfor%}
+                                
+                                <div class="col-sm-4">
+                                    <br><br><br><br>
+                                    <div class="form-sh"> <a class="btn" ><input type="submit" value="Create"></a> </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("id_name").placeholder = "Campany Name"
+    document.getElementById("id_avatar").placeholder = "Campany Name"
+    document.getElementById("id_cover").placeholder = "Campany Name"
+</script> 
+{%endblock%}
