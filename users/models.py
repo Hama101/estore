@@ -1,15 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
+
 # Create your models here.
 class Profile(models.Model):
+
     user = models.OneToOneField(User , blank=True ,on_delete=models.CASCADE)
     name = models.CharField(max_length=200 ,blank=True,null=True)
+    
     avatar = models.ImageField(blank=True , null=True , upload_to='Profile/')
     cover = models.ImageField(blank=True , null=True , upload_to='Profile/')
+    
     is_buyer = models.BooleanField(default=False)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product ,blank=True , null=True)
+    
+    type = models.CharField(max_length=30 , blank=True ,null=True )
+    address = models.CharField(max_length=30 , blank=True ,null=True )
+    employees_number = models.IntegerField(blank=True , null=True)
+    
+    web_site = models.CharField(max_length=5080 , blank=True , null=True)
+    
+    about_me = models.TextField(max_length=8000 , null=True , blank=True)
+    email = models.EmailField(null=True, blank=True)
+    phone = models.IntegerField( null = False, blank = False)
+    secondPhoneNumber = models.IntegerField(null = True, blank = True)
+    postcode = models.IntegerField(null = True, blank = True)
+    
     created_at = models.DateTimeField(auto_now=True , blank=True , null=True)
+    
+    
     
     @property
     def avatar_url(self):

@@ -51,6 +51,7 @@ def log_in(request):
 
     return render(request, 'users/log-in.html')
 
+@login_required(login_url='log-in')
 def logoutUser(request):
     logout(request)
     messages.info(request, 'User was logged out!')
@@ -70,24 +71,33 @@ def my_profile(request , username):
 
 @login_required(login_url='log-in')
 def make_profile(request):
-    form = ProfileForm()
     if request.method =="POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            print('i m here')
+        try:
             profile = Profile()
             profile.user = request.user
-            profile.name = form.cleaned_data.get('name')
+            
             profile.avatar = request.FILES.get('avatar')
             profile.cover = request.FILES.get('cover')
-            # when you add somthing add it here !
+            
+            profile.name = request.POST.get('name')
+            profile.phone = request.POST.get('phone1')
+            profile.secondPhoneNumber = request.POST.get('phone2')
+            profile.address = request.POST.get('address')
+            profile.postcode = request.POST.get('postcode')
+            profile.email = request.POST.get('email')
+            profile.employees_number  = request.POST.get('nb_emp')
+            profile.web_site = request.POST.get('website_url')
+            profile.type = request.POST.get('type')
+            
+            profile.about_me = request.POST.get('about_me')
+            
             profile.save()
             messages.success(request , f"Profile was successfully for {request.user.username} !")
             return redirect("my-profile" , username=request.user.username)
-        else:
+        except :
             messages.error(request , "Error !")
     
     context = {
-        "form" : form,
+        
     }
     return render(request , "users/make-profile.html" , context)

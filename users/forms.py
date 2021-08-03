@@ -23,4 +23,4 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = '__all__'
-        exclude = ['user' , 'is_buyer']
+        exclude = ['user' , 'is_buyer' ,"products"]

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render , redirect
 from .models import *
 from users.models import *
@@ -35,19 +36,22 @@ def home(request):
 
 def category(request , title):
     search = ''
+    m = ""
     category = Category.objects.get(title = title)
     
     categories = Category.objects.all()
     
     if request.GET.get('search') : 
         search = request.GET.get('search')
-        
+    
     mark = Mark.objects.all().filter(name__icontains = search)
     products = Product.objects.all().filter(category = category).distinct().filter( 
                                                 Q(name__icontains = search) |
                                                 Q(mark__in = mark) |
                                                 Q())
-
+    
+    marks = Mark.objects.all().filter(category = category)
+    
     is_buyer = False
     if request.user.is_authenticated:
         is_buyer = testBuyer(request)
@@ -55,6 +59,7 @@ def category(request , title):
     costum_range , products = productPaginator(request , products , 9)
     
     context = {
+        "marks": marks,
         "costum_range" : costum_range ,
         "search":search,
         "category" : category,
@@ -81,3 +86,21 @@ def view_product(request , pk):
         "product" : product ,
     }
     return render(request , "products/product-page.html" , context)
+
+
+@login_required(login_url='log-in')
+def save_to_wishlist(request , pk):
+    product = Product.objects.get(pk = pk)
+    profile = Profile.objects.get(user = request.user)
+    profile.products.add(product)
+    return redirect('my-profile' , username = request.user.username)
+
+@login_required(login_url='log-in')
+def remove_from_wishlist(request , pk):
+    product = Product.objects.get(pk = pk)
+    profile = Profile.objects.get(user = request.user)
+    profile.products.remove(product)
+    return redirect('my-profile' , username = request.user.username)
+
+
+

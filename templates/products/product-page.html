@@ -56,7 +56,7 @@
                         <h3>{{product.price}} dt<span></span></h3>
                         {%endif%}
                         {% if product.in_stock %}
-                           <a href="#">Contact company</a>
+                           <a href="#">Contact Us</a>
                         {%else%}
                            <a style="background: linear-gradient(to bottom, #b80903 100%, #05740b59 30%);" href="#">Out of stock</a>
                         {%endif%}
@@ -96,14 +96,10 @@
                         {% if request.user.is_authenticated  and is_buyer  %}
                         <div class="dex-a">
                            <h4>Description</h4>
-                           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                              lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                              when an unknown printer took a galley of type and scrambled it to make a 
-                              type specimen book..
+                           <p>{{product.description}}
                            </p>
                            <br>
-                           <p>Small: H 25 cm / &Oslash; 12 cm</p>
-                           <p>Large H 24 cm / &Oslash; 25 cm</p>
+                           <p>Measurments: H {{produt.height}} cm / &Oslash; {{product.width}} cm</p>
                         </div>
                         <div class="spe-a">
                            <h4>Specifications</h4>
@@ -113,7 +109,7 @@
                                     <h5>Measurments</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>H25 cm / 0 12 cm and H 24 cm / 0 25 cm</p>
+                                    <p>H {{produt.height}} cm / W {{product.width}} cm </p>
                                  </div>
                               </li>
                               <li class="clearfix">
@@ -121,15 +117,15 @@
                                     <h5>Material</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>Material Name</p>
+                                    <p>{{product.material}}</p>
                                  </div>
                               </li>
                               <li class="clearfix">
                                  <div class="col-md-4">
-                                    <h5>Wire</h5>
+                                    <h5>Mass</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>Wire Name</p>
+                                    <p>{{product.mass}}</p>
                                  </div>
                               </li>
                               <li class="clearfix">
@@ -137,7 +133,7 @@
                                     <h5>Comdition</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>Brand new</p>
+                                    <p>{{product.condition}}</p>
                                  </div>
                               </li>
                               <li class="clearfix">
@@ -145,7 +141,7 @@
                                     <h5>SKU number</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>SKU number</p>
+                                    <p>{{product.SKU}}</p>
                                  </div>
                               </li>
                               <li class="clearfix">
@@ -153,7 +149,7 @@
                                     <h5>Shipping</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>Shipping worldwide</p>
+                                    <p><a href="https://www.aramex.com/us/en/track/shipments">Aramex </a></p>
                                  </div>
                               </li>
                               <li class="clearfix">
@@ -161,15 +157,7 @@
                                     <h5>Warranty</h5>
                                  </div>
                                  <div class="col-md-8">
-                                    <p>1 years</p>
-                                 </div>
-                              </li>
-                              <li class="clearfix">
-                                 <div class="col-md-4">
-                                    <h5>Delivery</h5>
-                                 </div>
-                                 <div class="col-md-8">
-                                    <p>Choose country</p>
+                                    <p>{{product.warranty}} years</p>
                                  </div>
                               </li>
                            </ul>

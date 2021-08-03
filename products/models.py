@@ -18,7 +18,7 @@ class Category(models.Model):
 
 class Mark(models.Model):
     name = models.CharField(max_length=200 , blank=True ,null=True,unique=True)
-    #etc..
+    category = models.ForeignKey(Category , on_delete=models.CASCADE, blank=True ,null=True)
     
     def __str__(self):
         return f'{self.name}'
@@ -34,14 +34,18 @@ class Product(models.Model):
     img2 = models.ImageField(blank=True,null=True , upload_to='Products/')
     img3 = models.ImageField(blank=True,null=True , upload_to='Products/')
     img4 = models.ImageField(blank=True,null=True , upload_to='Products/')
-    in_stock = models.BooleanField(blank=True , null=True , default=True)
-    '''
+    
+    quantity = models.IntegerField(blank=True , null=True )
+    
     description = models.TextField(blank=True, null=True)
-    measurment = models.CharField(blank=True, null=True,max_length=50)
+    height = models.FloatField(blank=True, null=True)
+    width = models.FloatField(blank=True, null=True)
     material = models.CharField(blank=True, null=True,max_length=50)
-    wire = models.CharField(blank=True, null=True,max_length=50)
-    ....
-    '''
+    mass = models.FloatField(blank=True, null=True)
+    condition = models.CharField(blank=True, null=True,max_length=50)
+    SKU = models.IntegerField(blank=True , null=True , unique=True)
+    warranty = models.IntegerField(blank=True, null=True)
+    
     created_at = models.DateTimeField(auto_now=True , blank=True , null=True)
     
     def __str__(self):
@@ -54,3 +58,7 @@ class Product(models.Model):
         else:
             return f"https://lallahoriye.com/wp-content/uploads/2019/04/Product_Lg_Type.jpg"
 
+    @property
+    def in_stock(self):
+        return self.quantity > 0
+    

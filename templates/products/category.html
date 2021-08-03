@@ -43,6 +43,7 @@
                      <h5>Any thing in mind </h5>
                      <input class="form-control" type="search" name="search" id="" value="{{search}}" placeholder="Enter a key word">
                      <br>
+                     
                      <input class="btn btn-primary" style="background-color:#09294c;" type="submit" value="Go">
                   </div>
                </div>
@@ -62,7 +63,7 @@
                                  <p>By <span>{{product.mark.name}}</span> under <span>{{category}}</span></p>
                                  {%if request.user.is_authenticated and is_buyer %}
                                  <div class="prod-btn">
-                                    <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                    <a href="{%url 'save-to-wishlist' product.id %}"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
                                  </div>
                                  {%endif%}
                               </div>

@@ -2,6 +2,16 @@
 {%load static%}
 
 {%block head%}
+   <style>
+      .ff{
+         color:white;
+      }
+      @media only screen and (max-width: 768px) {
+         .ff{
+            color:black;
+         }
+      }
+   </style>
    <title>{{profile.user.username}}</title>
 {%endblock%}
 
@@ -16,15 +26,14 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-10">
                            <div class="profile-left-b">
-                              <ul>
-                                 <li><a href="#">Manufacturer </a></li>
-                                 <li><a href="#">Furniture</a></li>
-                                 <li><a href="#">Est.2002</a></li>
-                                 <li><a href="#">54-100 employees</a></li>
+                              <ul class="ff">
+                                 <li><p >{{profile.type}} </p></li>
+                                 <li><p >{{profile.address}}</p></li>
+                                 <li><p >{{profile.employees_number}} employees</p></li>
                               </ul>
                            </div>
                            <div class="profile-right-b">
-                              <a class="vi-btn" href="#">Visit website</a>
+                              <a class="vi-btn" href="{{profile.web_site}}">Visit website</a>
                            </div>
                         </div>
                      </div>
@@ -48,7 +57,11 @@
                               <div class="check-box"></div>
                            {%endif%}
                         </div>
-                        <a href="#tab3default">Contact company</a>
+                        {%if profile.is_buyer%}
+                           <a href="#tab3default">Virefied</a>
+                        {%else%} 
+                           <a href="#tab3default" style="background-color: red;">Not Virefied</a>
+                        {%endif%}
                         <p><img src="{% static 'images/report-icon.jpg'%}" alt="" />Report this user</p>
                      </div>
                   </div>
@@ -82,9 +95,7 @@
                                              <a href="#" tabindex="0">{{product.price}} dt</a>
                                           </div>
                                           <div class="prod-btn">
-                                             <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                             <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                             <p>23 likes</p>
+                                             <a href="{% url 'remove-from-wishlist' product.id %}"><i class="fa fa-star" aria-hidden="true"></i> Remove from wishlist</a>
                                           </div>
                                        </div>
                                     </div>
@@ -94,17 +105,20 @@
                               </div>
                               <div class="tab-pane fade" id="tab2default">
                                  <div class="about-box">
-                                    <h2>What Does Chamb Do</h2>
-                                    <p>Chamb brings buyers and suppliers of goods together to create lasting profitable relationships. Through new connections, economic roads, and insightful associations, we want Chamb to help transform your business into the next Apple!</p>
-                                    <p>At Chamb we understand the old adage of ‘it’s not what you know, but Who you know’ is key to success. With that in mind, through much trial and just a little bit of error, we learned the one limiting factor of any business achieving its potential: Their connections.</p>
-                                    <p>Before Chamb existed, we noticed that though the power of the net rested at business’ finger tips, resources for discovering manufacturers and suppliers was limited at best and non-existent at worse. Smaller companies that housed great products and potential, were starving through a lack of connectivity.</p>
-                                    <p>We took it upon ourselves to change that. We developed a burning desire to create something to bridge the chasms between businesses across country and continent. So, with a goal in mind, a skilled team at hand, Chamb sprung forth: the website that helps discover and build profitable long-lasting networks amongst businesses around the world.</p>
+                                    <h2>About </h2>
+                                    <p>
+                                       {{profile.about_me}}
+                                    </p>
                                  </div>
                               </div>
                               <div class="tab-pane fade" id="tab3default">
-                                 <h3>Email : test@mail.com</h3>
+                                 <h3>Email : {{profile.email}}</h3>
                                  <br>
-                                 <h3>Phone : +5555555555</h3>
+                                 <h3>Phone 1 : +216 {{profile.phone}}</h3>
+                                 <br>
+                                 <h3>Phone 2 : +216 {{profile.secondPhoneNumber}}</h3>
+                                 <br>
+                                 <h4>Postecode : {{profile.postcode}}</h4>
                               </div>
                               <div class="tab-pane fade" id="tab4default">Default 4</div>
                               <div class="tab-pane fade" id="tab5default">Default 5</div>
