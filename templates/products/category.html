@@ -92,6 +92,8 @@
                   {%endfor%}
                </div>
             </div>
+            
+            {%include 'pagination.html' with queryset=products costum_range=costum_range%}
             <div class="col-md-3">
                <div class="furniture-right">
                   <h3>Categories</h3>
@@ -115,8 +117,6 @@
                   </div>
                </div>
             </div>
-            {%include 'pagination.html' with queryset=products costum_range=costum_range%}
-            
          </div>
       </div>
    </div>
