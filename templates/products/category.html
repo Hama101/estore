@@ -8,14 +8,21 @@
       text-align: center;
       padding: 20px;
    }
-
    .p-image {
       width: 100%;
       height: 100%;
       object-fit: contain;
    }
+   .mobile{
+      display: none;
+   }
+   @media only screen and (max-width: 768px) {
+      .mobile{
+         display: block;
+      }
+   }
 </style>
-<title> Shop </title>
+<title> Shop >> {{category}}</title>
 {%endblock%}
 {%block body%}
 <div class="furniture-box">
@@ -43,8 +50,9 @@
                      <h5>Any thing in mind </h5>
                      <input class="form-control" type="search" name="search" id="" value="{{search}}" placeholder="Enter a key word">
                      <br>
-                     
-                     <input class="btn btn-primary" style="background-color:#09294c;" type="submit" value="Go">
+                     <div style="display: flex; justify-content: flex-end">
+                        <input class="btn btn-primary" style="background-color:#09294c;" type="submit" value="Go">
+                     </div>
                   </div>
                </div>
             </form>
@@ -60,7 +68,7 @@
                            <div class="col-md-6">
                               <div class="left-big">
                                  <h3>{{product}}</h3>
-                                 <p>By <span>{{product.mark.name}}</span> under <span>{{category}}</span></p>
+                                 <p>By <span>{{product.mark.name}}</span> under <span>{{product.category.title}}</span></p>
                                  {%if request.user.is_authenticated and is_buyer %}
                                  <div class="prod-btn">
                                     <a href="{%url 'save-to-wishlist' product.id %}"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
@@ -75,52 +83,6 @@
                                     <a class="view-btn" href="{% url 'product' product.id %}">View</a>
                                     <a href="#">{{product.price}} dt</a>
                                  </div>
-                                 <!--
-                                 <div class="like-list">
-                                    <ul>
-                                       <li>
-                                          <div class="im-b">
-                                             <a href="">
-                                                <img class="" src="{% static 'images/list-img-01.png'%}"
-                                                alt="HEEEEEEEEEEEEEEY!" />
-                                             </a>
-                                             </div>
-                                       </li>
-                                       <li>
-                                          <div class="im-b">
-                                             <a href="">
-                                                <img class="" src="{% static 'images/list-img-01.png'%}"
-                                                alt="HEEEEEEEEEEEEEEY!" />
-                                             </a>
-                                             </div>
-                                       </li>
-                                       <li>
-                                          <div class="im-b">
-                                             <a href="">
-                                                <img class="" src="{% static 'images/list-img-01.png'%}"
-                                                alt="HEEEEEEEEEEEEEEY!" />
-                                             </a>
-                                             </div>
-                                       </li>
-                                       <li>
-                                          <div class="im-b">
-                                             <a href="">
-                                                <img class="" src="{% static 'images/list-img-01.png'%}"
-                                                alt="HEEEEEEEEEEEEEEY!" />
-                                             </a>
-                                             </div>
-                                       </li>
-                                       <li>
-                                          <div class="im-b">
-                                             <a href="">
-                                                <img class="" src="{% static 'images/list-img-01.png'%}"
-                                                alt="HEEEEEEEEEEEEEEY!" />
-                                             </a>
-                                             </div>
-                                       </li>
-                                    </ul>
-                                 </div>
-                              -->
                               </div>
                            </div>
                            {%endif%}
@@ -130,11 +92,17 @@
                   {%endfor%}
                </div>
             </div>
-            <div class="col-md-3 hidden-xs">
+            <div class="col-md-3">
                <div class="furniture-right">
                   <h3>Categories</h3>
                   <div class="right-list-f">
                      <ul>
+                        <li>
+                           <a href="{% url 'shop' %}"><img width="32" src="https://thumbs.dreamstime.com/b/shop-building-colorful-isolated-white-33822015.jpg" 
+                                 alt="#" /> 
+                              Shop
+                           </a>
+                        </li>
                         {% for category in categories %}
                         <li>
                            <a href="{% url 'category' category.title %}"><img width="32" src="{{category.img_url}}" 
@@ -148,6 +116,7 @@
                </div>
             </div>
             {%include 'pagination.html' with queryset=products costum_range=costum_range%}
+            
          </div>
       </div>
    </div>

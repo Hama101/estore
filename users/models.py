@@ -4,7 +4,6 @@ from products.models import Product
 
 # Create your models here.
 class Profile(models.Model):
-
     user = models.OneToOneField(User , blank=True ,on_delete=models.CASCADE)
     name = models.CharField(max_length=200 ,blank=True,null=True)
     

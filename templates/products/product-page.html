@@ -83,14 +83,15 @@
                               </ul>
                            </div>
                         </div>
-                        <div class="btn-dit-list clearfix">
-                           <div class="left-dit-p">
-                              <div class="prod-btn">
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                        {% if request.user.is_authenticated  and is_buyer  %}
+                           <div class="btn-dit-list clearfix">
+                              <div class="left-dit-p">
+                                 <div class="prod-btn">
+                                    <a href="{%url 'save-to-wishlist' product.id %}"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                 </div>
                               </div>
                            </div>
-                           
-                        </div>
+                        {%endif%}
                      </div>
                      <div class="description-box">
                         {% if request.user.is_authenticated  and is_buyer  %}
@@ -186,7 +187,7 @@
                               </div>
                               <div class="prod-btn">
                                  {% if request.user.is_authenticated  and is_buyer  %}
-                                 <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                 <a href="{%url 'save-to-wishlist' product.id %}"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
                                  {%endif%}
                               </div>
                               
@@ -200,12 +201,12 @@
                </div>
                <div class="col-md-3 col-sm-12">
                   <div id="" class="price-box-right">
-                     <h4>Price</h4>
                      {% if request.user.is_authenticated  and is_buyer  %}
+                     <h4>Price</h4>
                      <h3>{{product.price}} dt<span></span></h3>
                      {%endif%}
                      {% if product.in_stock %}
-                        <a href="#">Contact company</a>
+                        <a href="{% url 'about-us'%}">Contact company</a>
                      {%else%}
                         <a style="background: linear-gradient(to bottom, #b80903 100%, #ffffff59 0%);"  href="#">Out of stock</a>
                      {%endif%}

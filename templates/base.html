@@ -91,9 +91,10 @@
                             </div>
                             <div class="nav-b hidden-xs">
                                 <div class="nav-box">
-                                    <ul>
-                                        <li><a href="howitworks.html">How it works</a></li>
-                                        <li><a href="about-us.html">Chamb for Business</a></li>
+                                    <ul> 
+                                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                                        <li><a href="{% url 'how-it-works'%}">How it works</a></li>
+                                        <li><a href="{% url 'about-us'%}">About us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -124,9 +125,9 @@
     </div>
     <div id="sidebar" class="top-nav">
         <ul id="sidebar-nav" class="sidebar-nav">
-            <li><a href="#">Help</a></li>
-            <li><a href="#">How it works</a></li>
-            <li><a href="#">Chamb for Business</a></li>
+            <li><a href="{% url 'shop' %}">Shop</a></li>
+            <li><a href="{% url 'how-it-works'%}">How it works</a></li>
+            <li><a href="{% url 'about-us'%}">About us</a></li>
         </ul>
     </div>
     <div class="container" id="alert-s">    
