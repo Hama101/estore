@@ -12,9 +12,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = [
             "category",
             "mark",
-            "quantity",
-            "SKU",
-            "price",
             "created_at"
     ]
     search_fields = (
