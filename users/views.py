@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import *
-
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 def sign_up(request):
     form = CustomUserCreationForm()
@@ -16,6 +17,13 @@ def sign_up(request):
             user.save()
             messages.success(request , f"Account was successfully for {user.username} !")
             login(request , user)
+            send_mail(
+                'Welcome to our site',
+                f'We glad to have your company on board with us , make sure to stay up we will contact you soon !',
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                fail_silently=False,
+            )
             return redirect("home")
         else:
             messages.error(request , "Error !")
@@ -71,8 +79,11 @@ def my_profile(request , username):
 
 @login_required(login_url='log-in')
 def make_profile(request):
+    form = ProfileForm()
+
     if request.method =="POST":
         try:
+            form = ProfileForm(request.POST , request.FILES)
             profile = Profile()
             profile.user = request.user
             
@@ -89,15 +100,25 @@ def make_profile(request):
             profile.web_site = request.POST.get('website_url')
             profile.type = request.POST.get('type')
             
-            profile.about_me = request.POST.get('about_me')
+            profile.about_me = request.POST.get("about_me")
+            print("###############"  , profile.about_me)
             
             profile.save()
-            messages.success(request , f"Profile was successfully for {request.user.username} !")
+            messages.success(request , f"Profile was successfully for {request.user.username} Check Your mail for more details !")
+            #importing and seding mail
+            send_mail(
+                'Welcome to our site',
+                f'We glad to have your company on board with us , make sure to stay up we will contact you soon on {profile.phone} .',
+                settings.EMAIL_HOST_USER,
+                [profile.email],
+                fail_silently=False,
+            )
+            
             return redirect("my-profile" , username=request.user.username)
         except :
             messages.error(request , "Error !")
     
     context = {
-        
+        "form":form,
     }
     return render(request , "users/make-profile.html" , context)

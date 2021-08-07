@@ -22,5 +22,5 @@ class CustomUserCreationForm(UserCreationForm):
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
-        exclude = ['user' , 'is_buyer' ,"products"]
+        fields = ['about_me']
+        

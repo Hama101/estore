@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
 
+from ckeditor.fields import RichTextField
+
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User , blank=True ,on_delete=models.CASCADE)
-    name = models.CharField(max_length=200 ,blank=True,null=True)
+    name = models.CharField(max_length=200 ,blank=True,null=True , unique=True)
     
     avatar = models.ImageField(blank=True , null=True , upload_to='Profile/')
     cover = models.ImageField(blank=True , null=True , upload_to='Profile/')
@@ -19,9 +21,9 @@ class Profile(models.Model):
     
     web_site = models.CharField(max_length=5080 , blank=True , null=True)
     
-    about_me = models.TextField(max_length=8000 , null=True , blank=True)
+    about_me = RichTextField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
-    phone = models.IntegerField( null = False, blank = False)
+    phone = models.IntegerField( null=False, blank = False)
     secondPhoneNumber = models.IntegerField(null = True, blank = True)
     postcode = models.IntegerField(null = True, blank = True)
     

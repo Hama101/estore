@@ -1,1 +1,3 @@
 staticfiles/
+static/upload/
+db.sqlite3
